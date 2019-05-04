@@ -20,12 +20,13 @@ def findElement text
         return  find(:xpath, "//#{tag}[contains(text(),'#{text}')]", visible: true)
       else
         attr = attr.split[1]
+        attr = attr.split('>')[0]
         return find(:xpath, "//#{tag}[@#{attr}][contains(text(),'#{text}')]", visible: true)
       end
     end
   else
 
-    attr_name = ['name', 'id', 'class', 'href', 'title', 'type', 'placeholder', 'list', 'dropzone', 'draggable', 'download', 'form', 'headers']
+    attr_name = ['name', 'id', 'class', 'href', 'title', 'type', 'placeholder','value', 'list', 'dropzone', 'draggable', 'download', 'form', 'headers']
     i = 0
     attr_name.each do |attribute|
       @element = attribute + '="' + text + '"'

@@ -5,6 +5,8 @@ gem install findElement
 require 'findElement'
 require 'selenium-webdriver'
 require 'capybara'
+
+
 usage:
 
 findElement("inner text, id,class,name,placeholder etc").click

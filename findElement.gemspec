@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'findElement'
-  s.version = '0.1.1'
+  s.version = '0.1.3'
   s.date = '2019-04-28'
   s.summary = "find element"
   s.description = "simple find element gem"
