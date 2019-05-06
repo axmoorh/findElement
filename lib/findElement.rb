@@ -15,7 +15,7 @@
                     <div id='div-gpt-ad-1459260874003-0' class="mastheadBanner text-center visible-m"></div>
                 </div>
 
-findElement("Hidden subject").["class"]  ==> content
+findElement("Hidden subject")["class"]  ==> content
 
 findElement("div-gpt-ad-1455279154558-0").click  ==>click element
 
