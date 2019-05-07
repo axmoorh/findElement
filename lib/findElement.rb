@@ -1,5 +1,3 @@
-
-
 =begin
 
 @example:
@@ -15,7 +13,7 @@
                     <div id='div-gpt-ad-1459260874003-0' class="mastheadBanner text-center visible-m"></div>
                 </div>
 
-findElement("Hidden subject").["class"]  ==> content
+findElement("Hidden subject")["class"]  ==> content
 
 findElement("div-gpt-ad-1455279154558-0").click  ==>click element
 
@@ -26,11 +24,6 @@ findElement("adv-spinner loadingSpinner").text ==> picture
 
 
 =end
-
-
-
-
-
 
 
 def findElement text
@@ -49,7 +42,7 @@ def findElement text
     else
       attr = cond[0].split("<").last
       unless attr.include? "=\""
-        return  find(:xpath, "//#{tag}[contains(text(),'#{text}')]", visible: true)
+        return find(:xpath, "//#{tag}[contains(text(),'#{text}')]", visible: true)
       else
         key = attr.split('="')[0].split[1]
         value = attr.split(key)[1].split('"')[1]
@@ -57,17 +50,20 @@ def findElement text
       end
     end
   else
-
-    attr_name = ['name', 'id', 'class', 'href','data-title','data-dismiss' ,'style','title', 'type', 'placeholder','value', 'list', 'dropzone', 'draggable', 'download', 'form', 'headers']
-    i = 0
-    attr_name.each do |attribute|
-      @element = attribute + '="' + text + '"'
-      break if soruce.include? @element
-      i += 1
-      next if i < attr_name.count
-      raise('could not find :'+@element)
+    begin
+      attr_name = ['name', 'id', 'class', 'href', 'data-title', 'data-dismiss', 'style', 'title', 'type', 'placeholder', 'value', 'list', 'dropzone', 'draggable', 'download', 'form', 'headers']
+      i = 0
+      attr_name.each do |attribute|
+        @element = attribute + '="' + text + '"'
+        break if soruce.include? @element
+        i += 1
+        next if i < attr_name.count
+        raise('could not find :' + @element)
+      end
+      return find(:xpath, "//*[@#{@element}]", visible: true)
+    rescue
+      return find(:xpath, "//*[contains(text(),'#{text}')]", visible: true)
     end
-    return find(:xpath, "//*[@#{@element}]", visible: true)
 
   end
 
