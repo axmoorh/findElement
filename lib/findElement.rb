@@ -57,7 +57,7 @@ def findElement text
       end
     else
 
-      attr_name = ['data-guid','data-id','id', 'name', 'class', 'href', 'data-title','text-area','text', 'data-dismiss', 'style', 'title', 'type', 'placeholder', 'value', 'list', 'dropzone', 'draggable', 'download', 'form', 'headers']
+      attr_name = ['id', 'name', 'class', 'href', 'data-title','text-area','text', 'data-dismiss', 'style', 'title', 'type', 'placeholder', 'value', 'list', 'dropzone', 'draggable', 'download', 'form', 'headers']
       i = 0
       attr_name.each do |attribute|
         @element = attribute + '="' + text + '"'
