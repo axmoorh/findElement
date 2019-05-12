@@ -28,29 +28,35 @@ findElement("adv-spinner loadingSpinner").text ==> picture
 
 def findElement text
 
-  soruce = page.html
-  cond = soruce.split(text)
-  if cond.count == 2
-    tag = cond[0].split("<").last
-    tag = tag.split[0]
 
-    if cond[0][cond[0].length - 1] == '"'
-      attr = cond[0].split('<').last
-      attr = attr.split('="').last
-      attr = attr.split.last
-      return find(:xpath, "//#{tag}[@#{attr}='#{text}']", visible: true)
-    else
-      attr = cond[0].split("<").last
-      unless attr.include? "=\""
-        return find(:xpath, "//#{tag}[contains(text(),'#{text}')]", visible: true)
-      else
-        key = attr.split('="')[0].split[1]
-        value = attr.split(key)[1].split('"')[1]
-        return find(:xpath, "//#{tag}[@#{key}='#{value}'][contains(text(),'#{text}')]", visible: true)
-      end
+  begin
+    Timeout.timeout(2) do
+      return find(:xpath, "//*[contains(text(),'#{text}')]", visible: true)
     end
-  else
-    begin
+  rescue
+    soruce = page.html
+    cond = soruce.split(text)
+    if cond.count == 2
+      tag = cond[0].split("<").last
+      tag = tag.split[0]
+
+      if cond[0][cond[0].length - 1] == '"'
+        attr = cond[0].split('<').last
+        attr = attr.split('="').last
+        attr = attr.split.last
+        return find(:xpath, "//#{tag}[@#{attr}='#{text}']", visible: true)
+      else
+        attr = cond[0].split("<").last
+        unless attr.include? "=\""
+          return find(:xpath, "//#{tag}[contains(text(),'#{text}')]", visible: true)
+        else
+          key = attr.split('="')[0].split[1]
+          value = attr.split(key)[1].split('"')[1]
+          return find(:xpath, "//#{tag}[@#{key}='#{value}'][contains(text(),'#{text}')]", visible: true)
+        end
+      end
+    else
+
       attr_name = ['name', 'id', 'class', 'href', 'data-title', 'data-dismiss', 'style', 'title', 'type', 'placeholder', 'value', 'list', 'dropzone', 'draggable', 'download', 'form', 'headers']
       i = 0
       attr_name.each do |attribute|
@@ -61,8 +67,6 @@ def findElement text
         raise('could not find :' + @element)
       end
       return find(:xpath, "//*[@#{@element}]", visible: true)
-    rescue
-      return find(:xpath, "//*[contains(text(),'#{text}')]", visible: true)
     end
 
   end
