@@ -28,9 +28,9 @@ findElement("adv-spinner loadingSpinner").text ==> picture
 
 def findElement text
 
-  if text.include? '@xpath'
+  if text[0]== '/'
 
-    return find(:xpath, text.split('@xpath')[0])
+    return find(:xpath, text)
 
   else
 
